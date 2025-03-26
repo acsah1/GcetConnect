@@ -1,0 +1,95 @@
+version: "3.8"
+services:  
+  db:
+    hostname: db
+    image: postgres:16
+    restart: always
+    container_name: gcetconnect_app_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: gcetconnectdb
+      PGDATA: /var/lib/postgresql/data
+      PGUSER: user
+      PGDATABASE: gcetconnectdb
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - gceconnect_network
+  
+  web:
+    hostname: web
+    build: .
+    container_name: gcetconnect_app
+    ports:
+      - "5001:5001"  # or "5000:5000" if you want to use Flask default port
+    environment:
+      - FLASK_APP=run.py
+      - FLASK_ENV=development
+      - SQLALCHEMY_DATABASE_URI = "postgresql://user:password@gcetconnect_app_db:5432/gcetconnectdb"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    networks:
+      - gceconnect_network
+
+volumes:
+  postgres_data:
+
+networks:
+  gceconnect_network:
+    driver: bridge
+
+
+
+# services:  
+#   db:
+#     hostname: db
+#     image: postgres:16
+#     restart: always
+#     container_name: gcetconnect_app_db
+#     environment:
+#       POSTGRES_USER: user
+#       POSTGRES_PASSWORD: password
+#       POSTGRES_DB: gcetconnectdb
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     networks:
+#       - gceconnect_network
+  
+#   web:
+#     hostname: web
+#     build: .
+#     container_name: gcetconnect_app
+#     ports:
+#       - "5001:5001"
+#     environment:
+#       - FLASK_APP=run.py
+#       - FLASK_ENV=development
+
+#     volumes:
+#       - .:/app
+#     depends_on:
+#       - db
+#     networks:
+#       - gceconnect_network
+
+# volumes:
+#   postgres_data:
+
+# networks:
+#   gceconnect_network:
+#driver: bridge
+
+    

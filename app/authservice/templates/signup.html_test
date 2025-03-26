@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container d-flex flex-column align-items-center justify-content-center vh-100">
+    <h1 class="fw-bold text-center mb-4">Welcome to your professional community</h1>
+
+    <!-- Google Sign-In Button -->
+    <a href="{{ url_for('authservice.google_login') }}" class="btn btn-primary btn-lg d-flex align-items-center justify-content-center w-50 mb-3">
+        <img src="{{ url_for('static', filename='google-icon.png') }}" alt="Google Icon" class="me-2" style="width: 20px;">
+        Continue with Google
+    </a>
+
+    <!-- Email Sign-In Button -->
+    <a href="{{ url_for('authservice.login') }}" class="btn btn-outline-dark btn-lg w-50 mb-3">
+        Sign in with email
+    </a>
+
+    <!-- Agreement Text -->
+    <p class="text-center text-muted w-50" style="font-size: 14px;">
+        By clicking Continue to join or sign in, you agree to LinkedIn’s 
+        <a href="#" class="text-primary">User Agreement</a>, 
+        <a href="#" class="text-primary">Privacy Policy</a>, and 
+        <a href="#" class="text-primary">Cookie Policy</a>.
+    </p>
+
+    <!-- Sign-Up Link -->
+    <p class="text-center fw-bold">
+        New to our platform? <a href="{{ url_for('authservice.signup') }}" class="text-primary">Join now</a>
+    </p>
+</div>
+{% endblock %}

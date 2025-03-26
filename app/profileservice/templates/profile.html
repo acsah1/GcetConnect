@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card p-4">
+        <h1 class="text-center">{{ profile.full_name }}</h1>
+        <div class="text-center mb-3">
+            <img src="{{ profile.photo_url }}" alt="Profile Photo" class="img-fluid rounded-circle" style="max-width: 150px;">
+        </div>
+        <p><strong>Bio:</strong> {{ profile.bio }}</p>
+        <p><strong>Location:</strong> {{ profile.location }}</p>
+        <p><strong>Skills:</strong> {{ profile.skills }}</p>
+        <p><strong>Experience:</strong> {{ profile.experience }}</p>
+    </div>
+
+    <div class="card p-4 mt-4">
+        <h2>Summary</h2>
+        <p>{{ profile.summary }}</p>
+    </div>
+
+    <div class="card p-4 mt-4">
+        <h3>Recommendations</h3>
+        {% for recommendation in profile.recommendations %}
+            <p><strong>{{ recommendation.recommender_name }}:</strong> {{ recommendation.recommendation_text }}</p>
+        {% endfor %}
+        <a href="{{ url_for('profileservice.add_recommendation') }}" class="btn btn-primary">Add Recommendation</a>
+    </div>
+
+    <div class="card p-4 mt-4">
+        <h3>Update Profile</h3>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                <label class="form-label" for="full_name">{{ form.full_name.label }}</label>
+                {{ form.full_name(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="bio">{{ form.bio.label }}</label>
+                {{ form.bio(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="location">{{ form.location.label }}</label>
+                {{ form.location(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="skills">{{ form.skills.label }}</label>
+                {{ form.skills(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="experience">{{ form.experience.label }}</label>
+                {{ form.experience(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="photo_url">{{ form.photo_url.label }}</label>
+                {{ form.photo_url(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="background_image">{{ form.background_image.label }}</label>
+                {{ form.background_image(class="form-control") }}
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="summary">{{ form.summary.label }}</label>
+                {{ form.summary(class="form-control") }}
+            </div>
+
+            <button type="submit" class="btn btn-success">Update Profile</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

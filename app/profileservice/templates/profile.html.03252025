@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ profile.full_name }}</h1>
+    <img src="{{ profile.photo_url }}" alt="Profile Photo">
+    <p>{{ profile.bio }}</p>
+    <p>{{ profile.location }}</p>
+    <p>{{ profile.skills }}</p>
+    <p>{{ profile.experience }}</p>
+
+    <h2>Summary</h2>
+    <p>{{ profile.summary }}</p>
+
+    <h3>Recommendations</h3>
+    {% for recommendation in profile.recommendations %}
+        <p>{{ recommendation.recommender_name }}: {{ recommendation.recommendation_text }}</p>
+    {% endfor %}
+
+    <a href="{{ url_for('profileservice.add_recommendation') }}">Add Recommendation</a>
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+    
+        <div>
+            <label for="full_name">{{ form.full_name.label }}</label>
+            {{ form.full_name() }}
+        </div>
+    
+        <div>
+            <label for="bio">{{ form.bio.label }}</label>
+            {{ form.bio() }}
+        </div>
+    
+        <div>
+            <label for="location">{{ form.location.label }}</label>
+            {{ form.location() }}
+        </div>
+    
+        <div>
+            <label for="skills">{{ form.skills.label }}</label>
+            {{ form.skills() }}
+        </div>
+    
+        <div>
+            <label for="experience">{{ form.experience.label }}</label>
+            {{ form.experience() }}
+        </div>
+    
+        <div>
+            <label for="photo_url">{{ form.photo_url.label }}</label>
+            {{ form.photo_url() }}
+        </div>
+    
+        <div>
+            <label for="background_image">{{ form.background_image.label }}</label>
+            {{ form.background_image() }}
+        </div>
+    
+        <div>
+            <label for="summary">{{ form.summary.label }}</label>
+            {{ form.summary() }}
+        </div>
+    
+        <button type="submit">Update Profile</button>
+    </form>
+    
+    {% endblock %}

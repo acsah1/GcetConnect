@@ -1,3 +1,0 @@
-# GcetConnect
-
-testing

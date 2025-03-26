@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Sign Up</h2>
+    <form method="POST" action="{{ url_for('authservice.signup') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="username">Username</label>
+            {{ form.username(class='form-control') }}
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            {{ form.password(class='form-control') }}
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            {{ form.confirm_password(class='form-control') }}
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+    <a href="{{ url_for('authservice.login') }}" class="btn btn-outline-dark btn-lg w-50 mb-3">
+        Sign in with email
+    </a>
+</div>
+{% endblock %}

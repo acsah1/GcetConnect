@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome to the Gcet Connect App!</h1>
+<p>This is the main dashboard.</p>
+{% endblock %}
+
+

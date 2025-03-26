@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="title">All Posts</h2>
+
+    {% for post in posts %}
+    <div class="post">
+        <h3 class="post-title">{{ post.title }}</h3>
+        <p class="post-content">{{ post.content }}</p>
+        <p class="post-meta">Posted by {{ post.user.username }} on {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+
+            <form action="{{ url_for('postservice.like_post', post_id=post.id) }}" method="POST">
+                <button type="submit" class="btn-like">👍 Like</button>
+            </form>
+            <button class="btn-comment" onclick="toggleCommentBox('{{ post.id }}')">💬 Comment</button>
+        </div>
+
+        <div class="comment-section" id="comment-box-{{ post.id }}" style="display: none;">
+            <form action="{{ url_for('postservice.comment', post_id=post.id) }}" method="POST">
+
+                {{ comment_form.hidden_tag() }}
+                <textarea name="content" class="form-control" placeholder="Write a comment..." required></textarea>
+                <button type="submit" class="btn-submit">Submit</button>
+            </form>
+
+            <div class="comments">
+                {% for comment in post.comments %}
+                <div class="comment">
+                    <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
+                    <span class="comment-meta">{{ comment.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+function toggleCommentBox(postId) {
+    var commentBox = document.getElementById("comment-box-" + postId);
+    commentBox.style.display = commentBox.style.display === "none" ? "block" : "none";
+}
+</script>
+{% endblock %}

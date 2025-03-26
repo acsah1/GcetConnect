@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="error-title">An Error Occurred</h2>
+    <p>Sorry, something went wrong. Please try again later or go back to the homepage.</p>
+    <a href="{{ url_for('main.index') }}" class="btn btn-primary">Go to Homepage</a>
+</div>
+{% endblock %}

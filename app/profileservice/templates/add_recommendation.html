@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Add Recommendation</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <label for="recommender_name">Recommender Name</label>
+        {{ form.recommender_name }}
+        <label for="recommendation_text">Recommendation</label>
+        {{ form.recommendation_text }}
+        <button type="submit">Submit Recommendation</button>
+    </form>
+    {% endblock %}

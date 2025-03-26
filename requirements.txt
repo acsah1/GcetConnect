@@ -1,6 +1,8 @@
-flask
-flask_sqlalchemy
-flask_migrate
-flask_login
-flask_bcrypt
-networkx
+Flask
+Flask-SQLAlchemy
+Flask-Bcrypt
+Flask-Login
+Flask-WTF
+Flask-Migrate==3.1.0
+psycopg2-binary
+
